@@ -286,9 +286,9 @@ static class TetrahedronExample
                         rendering.SurfaceColour = i.New<IfcColourRgb>(colour =>
                         {
                             colour.Name = "Orange";
-                            colour.Red = 1.0;
-                            colour.Green = 0.5;
-                            colour.Blue = 0.0;
+                            colour.Red = 0.0;
+                            colour.Green = 0.0;
+                            colour.Blue = 1.0;
                         });
                     }));
                 }));
@@ -325,23 +325,15 @@ static class TetrahedronExample
             return model.Instances.New<IfcTriangulatedFaceSet>(tfs => {
                 tfs.Closed = true;
                 tfs.Coordinates = model.Instances.New<IfcCartesianPointList3D>(pl => {
-                    pl.CoordList.GetAt(0).AddRange(new IfcLengthMeasure[] { 0, 0, 0 });
-                    pl.CoordList.GetAt(1).AddRange(new IfcLengthMeasure[] { 1, 0, 0 });
-                    pl.CoordList.GetAt(2).AddRange(new IfcLengthMeasure[] { 0, 1, 0 });
-                    pl.CoordList.GetAt(3).AddRange(new IfcLengthMeasure[] { 0, 0, 1 });
-                    pl.CoordList.GetAt(4).AddRange(new IfcLengthMeasure[] { 1, 0, 1 });
-                    pl.CoordList.GetAt(5).AddRange(new IfcLengthMeasure[] { 0, 1, 1 });
+                    pl.CoordList.GetAt(0).AddRange(new IfcLengthMeasure[] { -1, -1, -2 });
+                    pl.CoordList.GetAt(1).AddRange(new IfcLengthMeasure[] { 0, 1, -2 });
+                    pl.CoordList.GetAt(2).AddRange(new IfcLengthMeasure[] { 1, -1, -2 });
                 });
 
                 // Indices are 1 based in IFC!
-                tfs.CoordIndex.GetAt(0).AddRange(new IfcPositiveInteger[] { 1, 3, 2 });
-                tfs.CoordIndex.GetAt(1).AddRange(new IfcPositiveInteger[] { 1, 2, 4 });
-                tfs.CoordIndex.GetAt(2).AddRange(new IfcPositiveInteger[] { 1, 4, 3 });
-                tfs.CoordIndex.GetAt(3).AddRange(new IfcPositiveInteger[] { 2, 5, 4 });
-                tfs.CoordIndex.GetAt(4).AddRange(new IfcPositiveInteger[] { 4, 3, 6 });
-                tfs.CoordIndex.GetAt(5).AddRange(new IfcPositiveInteger[] { 5, 2, 6 });
-                tfs.CoordIndex.GetAt(6).AddRange(new IfcPositiveInteger[] { 3, 2, 6 });
-                tfs.CoordIndex.GetAt(7).AddRange(new IfcPositiveInteger[] { 5, 4, 6 });
+                tfs.CoordIndex.GetAt(0).AddRange(new IfcPositiveInteger[] { 1, 2, 3 });
+
+
             });
         }
 
@@ -352,19 +344,11 @@ static class TetrahedronExample
 
             polyfaceset.Coordinates = model.Instances.New<IfcCartesianPointList3D>(pl => {
                 pl.CoordList.GetAt(0).AddRange(new IfcLengthMeasure[] { 0, 0, 0 });
-                pl.CoordList.GetAt(1).AddRange(new IfcLengthMeasure[] { 1, 0, 0 });
-                pl.CoordList.GetAt(2).AddRange(new IfcLengthMeasure[] { 0, 1, 0 });
-                pl.CoordList.GetAt(3).AddRange(new IfcLengthMeasure[] { 0, 0, 1 });
-                pl.CoordList.GetAt(4).AddRange(new IfcLengthMeasure[] { 1, 0, 1 });
-                pl.CoordList.GetAt(5).AddRange(new IfcLengthMeasure[] { 0, 1, 1 });
+                pl.CoordList.GetAt(1).AddRange(new IfcLengthMeasure[] { 2, 0, -2 });
+                pl.CoordList.GetAt(2).AddRange(new IfcLengthMeasure[] { 0, 2, 3 });
             });
             polyfaceset.Faces.AddRange(new[] {
-                model.Instances.New<IfcIndexedPolygonalFace>(face => face.CoordIndex.AddRange(new IfcPositiveInteger[] { 1, 3, 2 })),
-                model.Instances.New<IfcIndexedPolygonalFace>(face => face.CoordIndex.AddRange(new IfcPositiveInteger[] { 1, 2, 4 })),
-                model.Instances.New<IfcIndexedPolygonalFace>(face => face.CoordIndex.AddRange(new IfcPositiveInteger[] { 1, 4, 3 })),
-                model.Instances.New<IfcIndexedPolygonalFace>(face => face.CoordIndex.AddRange(new IfcPositiveInteger[] { 2, 3, 4 })),
-                model.Instances.New<IfcIndexedPolygonalFace>(face => face.CoordIndex.AddRange(new IfcPositiveInteger[] { 3, 4, 5 })),
-                model.Instances.New<IfcIndexedPolygonalFace>(face => face.CoordIndex.AddRange(new IfcPositiveInteger[] { 3, 4, 7 }))
+                model.Instances.New<IfcIndexedPolygonalFace>(face => face.CoordIndex.AddRange(new IfcPositiveInteger[] { 1, 2, 3 })),
             });
 
             return polyfaceset;
